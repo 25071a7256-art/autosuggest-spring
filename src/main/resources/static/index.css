@@ -1,3 +1,9 @@
 h1{
     color:red;
 }
+
+.navbar{
+    border-style:solid;
+    border-width:1px;
+    border-color:gray
+}
