@@ -37,7 +37,7 @@ body{
 }
 
 .being{
-    color:blue;
+    color:#4a7ff5;
 }
 
 .infinity{
@@ -49,9 +49,32 @@ body{
     font-size:22px;
 }
 
-input{
-    width:250px;
-    height:30px;
+.search-box{
+    width:350px;
+    height:35px;
+    padding-left:10px;
+    border-radius:20px;
+    font-size:16px;
+}
+
+.search-suggestions{
+    width:360px;
+    margin:10px auto;
+    text-align:left;
+    border-radius:10px;
+    box-shadow:0px 2px 8px rgba(0,0,0,0.2);
+    overflow:hidden;
+}
+
+.suggestion{
+    padding:10px;
+    border-bottom:1px solid #ddd;
+    background:white;
+}
+
+.suggestion:hover{
+    background:#f2f2f2;
+    cursor:pointer;
 }
 
 .footer{
@@ -67,27 +90,82 @@ input{
 
 <div class="box">
 
-    <span class="gear-icon">&#9881;</span>
+<span class="gear-icon">&#9881;</span>
 
-    <span class="status">&#8226; online | &#128339; - ms</span>
+<span class="status">&#8226; online | &#128339; - ms</span>
 
-    <h1>
-        <span class="being">Being</span><span class="infinity">Infinity</span>
-    </h1>
+<h1>
+<span class="being">Being</span><span class="infinity">Infinity</span>
+</h1>
 
-    <p class="tagline">
-        One million phrases. Four Algorithms. Prefix Based Auto Suggest.
-    </p>
+<p class="tagline">
+One million phrases. Four Algorithms. Prefix Based Auto Suggest.
+</p>
 
-    <span>&#128269;</span>
+<span style="font-size:20px;">&#128269;</span>
 
-    <input type="text" placeholder="Start typing to search">
+<input
+type="text"
+class="search-box"
+placeholder="Start typing to search..."
+onkeyup="getSearchSuggestions()">
+
+<div class="search-suggestions"></div>
 
 </div>
 
 <div class="footer">
-    Copyright &copy; Being Infinity Pvt. Ltd.
+Copyright &copy; Being Infinity Pvt. Ltd.
 </div>
+
+<script>
+
+function getSearchSuggestions(){
+
+    var searchBox=document.getElementsByClassName("search-box")[0];
+    var suggestionBox=document.getElementsByClassName("search-suggestions")[0];
+
+    var userInput=searchBox.value;
+
+    if(userInput.trim()==""){
+        suggestionBox.innerHTML="";
+        return;
+    }
+
+    var url="https://autosuggest-backend.onrender.com/api/autosuggest?q="
+            +userInput+
+            "&algorithm=brute&limit=10&weighted=false";
+
+    fetch(url)
+
+    .then(function(response){
+        return response.json();
+    })
+
+    .then(function(data){
+
+        var output="";
+
+        for(var i=0;i<data.count;i++){
+
+            output +=
+            "<div class='suggestion'>"
+            +data.results[i].text+
+            "</div>";
+
+        }
+
+        suggestionBox.innerHTML=output;
+
+    })
+
+    .catch(function(error){
+        console.log(error);
+    });
+
+}
+
+</script>
 
 </body>
 </html>
