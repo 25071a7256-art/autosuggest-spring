@@ -3,17 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>User Toggle</title>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-   <!--<h1> hello from html!</h1>--> 
-   <div class ="navbar">
-     <a href="https://github.com/">home</a>
-     <a href="">Github</a>
-     <a href="">Leetcode</a>
+
+    <div class ="navbar"> 
+      
+     <a href="https://github.com/">Home</a> 
+     <a href="">Github</a> 
+     <a href="">Leetcode</a> 
      <a href="">Autosuggest</a>
-   </div>
+    </div>
+
+    <div class="card">
+        <img id="user-image" src="john.png" alt="Image not found">
+
+        <h3 id="user-name">John Doe</h3>
+
+        <p id="user-gender">Male</p>
+
+        <button onclick="toggleUser()">Toggle User</button>
+
+        <br>
+        <br>
+
+        <button onclick="randomUser()">Random User</button>
+    </div>
+
     <script src="index.js"></script>
+
 </body>
 </html>
